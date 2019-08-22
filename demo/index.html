@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>API Video | Player Client Demo</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=1">
+
+        <script type="text/javascript" src="../avp_client.min.js"></script>
+
+        <style>
+            ul { min-height: 50px; list-style: none; margin: 0; padding: 0; font-size: 14px; clear: both  }
+            ul button { font-size: 14px; line-height: 1.6em }
+            li { padding: 10px 10px 0 0; margin: 0; float: left }
+            #events { width: 640px; height: 200px; line-height: 20px; overflow-x: hidden; overflow-y: auto }
+            #player { clear: both }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="controls">
+                <ul>
+                    <li><button onclick="apiVideoEmbed.play()">play</button></li>
+                    <li><button onclick="apiVideoEmbed.pause()">pause</button></li>
+                    <li><button onclick="apiVideoEmbed.toggle()">toggle play/pause</button></li>
+                    <li><button onclick="apiVideoEmbed.seek(10)">seek 10th second</button></li>
+                    <li><button onclick="apiVideoEmbed.mute()">mute</button></li>
+                    <li><button onclick="apiVideoEmbed.setVolume(.5)">set volume to 50%</button></li>
+                </ul>
+                <ul>
+                <p id="duration"></p>
+                <pre id="events"></pre>
+            </div>
+            <div class="player">
+                <iframe id="apivideo_player" src="https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#api;hide-controls" width="640" height="480" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // Get the iframe element that correspond to the api.video embed
+            window.apiVideoEmbed = document.getElementById('apivideo_player');
+
+            // Enrich the api.video <iframe> with methods and attributes
+            var player = new ApiVideoPlayer(apiVideoEmbed, function (p) {
+                //Can not work (Cause Browser restriction policy)
+                p.play(); // Autoplay
+            });
+
+            // Method `ApiVideoPlayer` returns the <iframe> element. You may either:
+            // - use it,
+            // - retrieve the <iframe> element by yourself
+            // - or use a previously set variable (eg. `apiVideoEmbed` in this example)
+
+            // Let's listen to some events :
+            player.onloadedmetadata = function (event) {
+                document.getElementById('duration').innerHTML = "Video duration is: " + player.duration + "s";
+                logEvent("loadedmetadata: " + event.data.values.duration);
+            };
+            player.onloadeddata = function () {
+                logEvent("loadeddata");
+            };
+            player.oncanplay = function () {
+                logEvent("canplay");
+            };
+            player.onplay = function () {
+                logEvent("play");
+            };
+            player.onplaying = function () {
+                logEvent("playing");
+            };
+            player.onpause = function () {
+                logEvent("pause");
+            };
+            player.ontimeupdate = function (event) {
+                logEvent("timeupdate: " + event.data.values.currentTime);
+            };
+            // Also works with the element directly
+            apiVideoEmbed.onvolumechange = function (event) {
+                logEvent("volumechange: " + event.data.values.volumeLevel);
+            };
+            document.getElementById('apivideo_player').onended = function () {
+                logEvent("ended");
+            };
+        </script>
+        <script type="text/javascript">
+            /********
+             /**
+             /**    Somme helpers for the demo (please ignore)
+             /**
+             /**/   window.logEvent = function (message) {
+                /**/       document.getElementById('events').innerHTML = message
+                    /**/               + "\n"
+                    /**/               + document.getElementById('events').innerHTML;
+                /**/   };
+            /**/   window.listLogs = function () {
+                /**/       return document.getElementById('events').innerHTML;
+                /**/   };
+            /**
+             /********/
+        </script>
+    </body>
+</html>
