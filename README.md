@@ -1,4 +1,4 @@
-Api Video HTML5 Player JavaScript Client
+api.video HTML5 Player JavaScript Client
 ======================================
 
 ### Installation and use
@@ -58,12 +58,12 @@ api.video client has been instantiated.
 - `volumechange`
 - `ended`
 
-Api Video HTML5 Player URL Fragments
+api.video HTML5 Player URL Fragments
 ==================================
 
 ### Introduction
 
-Some Api Video Player features may be activated with what's called `URL fragments`. 
+Some api.video Player's features may be activated with what's called `URL fragments`. 
 
 In other words, it means that the Api Video embed (iFrame) source URL may be completed by query parameters introduced by a hash (#).
 
