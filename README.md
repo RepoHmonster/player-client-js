@@ -75,9 +75,11 @@ Here is the example of a Api Video embed code:
 The source URL is `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp`. 
 
 Any fragment must be appened to the end of this URL after a hash `#`.
+
 Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay`
 
 Multiple fragments may be concatenated with a semi-colon `;`.
+
 Example : `https://embed.api.video/vod/vi54sj9dAakOHJXKrUycCQZp#autoplay;api`
 
 
