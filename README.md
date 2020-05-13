@@ -1,4 +1,4 @@
-api.video HTML5 Player JavaScript Client
+api.video HTML5 Player JavaScript Client (Deprecated)
 ======================================
 
 ### Installation and use
